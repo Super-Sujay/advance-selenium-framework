@@ -15,18 +15,6 @@
 		<testng.version>6.14.3</testng.version>
 		<browsermob.core.version>2.1.5</browsermob.core.version>
 		<browsermob.proxy.version>2.1.0-beta-6</browsermob.proxy.version>
-		<!-- Configurable variables -->
-		<suiteFile>TestExecution</suiteFile>
-		<threads>1</threads>
-		<browser>chrome</browser>
-		<overwrite.binaries>false</overwrite.binaries>
-		<remote>false</remote>
-		<seleniumGridURL></seleniumGridURL>
-		<platform></platform>
-		<browserVersion></browserVersion>
-		<proxyEnabled>false</proxyEnabled>
-		<proxyHost></proxyHost>
-		<proxyPort></proxyPort>
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -86,36 +74,6 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.0.0-M4</version>
-				<configuration>
-					<suiteXmlFiles>
-						<suiteXmlFile>${project.basedir}/src/test/resources/suitefiles/${suiteFile}.xml</suiteXmlFile>
-					</suiteXmlFiles>
-					<parallel>tests</parallel>
-					<threadCount>${threads}</threadCount>
-					<systemProperties>
-						<browser>${browser}</browser>
-						<remoteDriver>${remote}</remoteDriver>
-						<gridURL>${seleniumGridURL}</gridURL>
-						<desiredPlatform>${platform}</desiredPlatform>
-						<desiredBrowserVersion>${browserVersion}</desiredBrowserVersion>
-						<proxyEnabled>${proxyEnabled}</proxyEnabled>
-						<proxyHost>${proxyHost}</proxyHost>
-						<proxyPort>${proxyPort}</proxyPort>
-					</systemProperties>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>

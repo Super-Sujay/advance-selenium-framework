@@ -4,8 +4,8 @@ This is an advance selenium automation framework which can be use for automating
 
 ## Features
  - Page object model implementation (refer to the src/test/java folder for more reference).
- - Execution of tests using suite files (refer to the src/test/resources/suitefiles folder for more reference).
- - Data handling using Excel(.xlsx) files as well as CSV(.csv) files (refer to the src/test/resources folder for more reference).
+ - Execution of tests using suite files.
+ - Data handling using Excel(.xlsx) files as well as CSV(.csv) files.
  - Parallel execution of tests.
  - Ability to connect to an external selenium grid.
  - Ability to connect to a web based application using proxy settings.
@@ -17,9 +17,9 @@ This is an advance selenium automation framework which can be use for automating
 ## Installation
  - Clone the project in your local system.
  - Run the command `mvn clean install` in your local system.
- - Use the below mentioned dependency.
+ - Use the below mentioned dependency in the project you want to use the framework.
 ```
-        <dependency>
+     <dependency>
 		<groupId>org.automation.project</groupId>
 		<artifactId>advance-selenium-framework</artifactId>
 		<version>1.0.0</version>
