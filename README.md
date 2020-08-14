@@ -20,9 +20,9 @@ Implementation of this framework is provided in the [herokuapp testing](https://
  - Run the command `mvn clean install` in your local system.
  - Use the below mentioned dependency in the project you want to use the framework.
 ```
-     <dependency>
-		<groupId>org.automation.project</groupId>
-		<artifactId>advance-selenium-framework</artifactId>
-		<version>1.0.0</version>
-	</dependency>
+    <dependency>
+    	<groupId>org.automation.project</groupId>
+    	<artifactId>advance-selenium-framework</artifactId>
+    	<version>1.0.0</version>
+    </dependency>
 ```
