@@ -64,9 +64,9 @@ public class DriverFactory {
 	}
 
 	/**
-	 * Delete all cookies in the current thread's web driver instance.
+	 * Clear all cookies in the current thread's web driver instance.
 	 */
-	public static void quitDriver() {
+	public static void clearCookies() {
 		getDriver().manage().deleteAllCookies();
 	}
 

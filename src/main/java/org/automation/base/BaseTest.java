@@ -8,7 +8,7 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 import static org.automation.config.DriverFactory.closeDriverObjects;
 import static org.automation.config.DriverFactory.instantiateDriverObject;
-import static org.automation.config.DriverFactory.quitDriver;
+import static org.automation.config.DriverFactory.clearCookies;
 import static org.automation.logger.Log.error;
 
 import java.io.IOException;
@@ -56,7 +56,7 @@ public class BaseTest {
 	 */
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod() {
-		quitDriver();
+		clearCookies();
 	}
 
 	/**
