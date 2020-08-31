@@ -17,23 +17,19 @@ import org.openqa.selenium.support.ui.Select;
 public class DropDown extends Element {
 
 	/**
-	 * This Constructor is used to create an object to access a <b>Drop
-	 * Down</b>.
+	 * This Constructor is used to create an object to access a <b>Drop Down</b>.
 	 * 
-	 * @param description
-	 *            description of the drop down
-	 * @param locator
-	 *            locator of the drop down
+	 * @param description description of the drop down
+	 * @param locator     locator of the drop down
 	 */
 	public DropDown(String description, By locator) {
 		super(description, locator);
- 	}
+	}
 
 	/**
 	 * Select the drop down option by index.
 	 * 
-	 * @param index
-	 *            the index to be selected
+	 * @param index the index to be selected
 	 */
 	public void selectByIndex(int index) {
 		info("Select index [" + index + "] from the [" + description + "] drop down");
@@ -44,8 +40,7 @@ public class DropDown extends Element {
 	/**
 	 * Select the drop down option by value.
 	 * 
-	 * @param value
-	 *            the value to be selected
+	 * @param value the value to be selected
 	 */
 	public void selectByValue(String value) {
 		info("Select value [" + value + "] from the [" + description + "] drop down");
@@ -56,8 +51,7 @@ public class DropDown extends Element {
 	/**
 	 * Select the drop down option by text.
 	 * 
-	 * @param visibleText
-	 *            the text to be selected
+	 * @param visibleText the text to be selected
 	 */
 	public void selectByVisibleText(String visibleText) {
 		info("Select text [" + visibleText + "] from the [" + description + "] drop down");

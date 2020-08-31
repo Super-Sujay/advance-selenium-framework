@@ -74,8 +74,9 @@ public class WebDriverThread {
 	 * @return browser mob proxy
 	 */
 	public BrowserMobProxy getBrowserMobProxy() {
-		if (usingBrowserMobProxy)
+		if (usingBrowserMobProxy) {
 			return browserMobProxy;
+		}
 		return null;
 	}
 
@@ -92,8 +93,7 @@ public class WebDriverThread {
 	/**
 	 * Get the web driver instance.
 	 * 
-	 * @param useBrowserMobProxy
-	 *            true to use browser mob proxy, false otherwise
+	 * @param useBrowserMobProxy true to use browser mob proxy, false otherwise
 	 * @return web driver instance
 	 */
 	private WebDriver getDriver(boolean useBrowserMobProxy) {
@@ -143,8 +143,7 @@ public class WebDriverThread {
 	/**
 	 * Create a new web driver instance.
 	 * 
-	 * @param capabilities
-	 *            desired capabilities to use
+	 * @param capabilities desired capabilities to use
 	 */
 	private void instantiateWebDriver(DesiredCapabilities capabilities) {
 		info("Operating System: " + operatingSystem);
@@ -160,13 +159,16 @@ public class WebDriverThread {
 			}
 			String desiredBrowserVersion = getProperty("desiredBrowserVersion");
 			String desiredPlatform = getProperty("desiredPlatform");
-			if (desiredPlatform != null && !desiredPlatform.isEmpty())
+			if (desiredPlatform != null && !desiredPlatform.isEmpty()) {
 				capabilities.setPlatform(valueOf(desiredPlatform.toUpperCase()));
-			if (desiredBrowserVersion != null && !desiredBrowserVersion.isEmpty())
+			}
+			if (desiredBrowserVersion != null && !desiredBrowserVersion.isEmpty()) {
 				capabilities.setVersion(desiredBrowserVersion);
+			}
 			driver = new RemoteWebDriver(seleniumGridURL, capabilities);
-		} else
+		} else {
 			driver = selectedDriverType.getWebDriverObject(capabilities);
+		}
 	}
 
 }

@@ -19,10 +19,8 @@ public class Button extends Element {
 	/**
 	 * This Constructor is used to create an object to access a <b>Button</b>.
 	 * 
-	 * @param description
-	 *            description of the Button
-	 * @param locator
-	 *            locator of the Button
+	 * @param description description of the Button
+	 * @param locator     locator of the Button
 	 */
 	public Button(String description, By locator) {
 		super(description, locator);
@@ -39,10 +37,8 @@ public class Button extends Element {
 	/**
 	 * Click on the button.
 	 * 
-	 * @param <T>
-	 *            the type of the page class
-	 * @param pageClass
-	 *            expected class of the page after the click
+	 * @param <T>       the type of the page class
+	 * @param pageClass expected class of the page after the click
 	 * @return the pageClass object
 	 */
 	public <T extends BasePage> T click(Class<T> pageClass) {

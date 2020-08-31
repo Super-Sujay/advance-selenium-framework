@@ -18,10 +18,8 @@ public class CheckBox extends Element {
 	/**
 	 * This Constructor is used to create an object to access a <b>CheckBox</b>.
 	 * 
-	 * @param description
-	 *            description of the check box
-	 * @param locator
-	 *            locator of the check box
+	 * @param description description of the check box
+	 * @param locator     locator of the check box
 	 */
 	public CheckBox(String description, By locator) {
 		super(description, locator);
@@ -32,9 +30,9 @@ public class CheckBox extends Element {
 	 */
 	public void check() {
 		WebElement element = wait.until(elementToBeClickable(locator));
-		if (element.isSelected())
+		if (element.isSelected()) {
 			info("Checkbox [" + description + "] is already checked");
-		else {
+		} else {
 			info("Check [" + description + "] checkbox");
 			element.click();
 		}
@@ -48,8 +46,9 @@ public class CheckBox extends Element {
 		if (element.isSelected()) {
 			info("Uncheck [" + description + "] checkbox");
 			element.click();
-		} else
+		} else {
 			info("Checkbox [" + description + "] is already unchecked");
+		}
 	}
 
 	/**

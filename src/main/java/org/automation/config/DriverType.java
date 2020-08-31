@@ -67,7 +67,8 @@ public enum DriverType implements DriverSetup {
 		public DesiredCapabilities getCapabilities(Proxy proxySetting) {
 			DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
 			capabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, true);
-			capabilities.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR, UnexpectedAlertBehaviour.ACCEPT);
+			capabilities.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR,
+					UnexpectedAlertBehaviour.ACCEPT);
 			capabilities.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
 			capabilities.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
 			capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
@@ -140,10 +141,8 @@ public enum DriverType implements DriverSetup {
 	/**
 	 * Add proxy settings to the desired capabilities.
 	 * 
-	 * @param capabilities
-	 *            desired capabilities
-	 * @param proxySetting
-	 *            proxy settings
+	 * @param capabilities desired capabilities
+	 * @param proxySetting proxy settings
 	 * @return desired capabilities
 	 */
 	protected DesiredCapabilities addProxySettings(DesiredCapabilities capabilities, Proxy proxySetting) {

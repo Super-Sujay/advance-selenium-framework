@@ -26,8 +26,7 @@ public class BasePage {
 	/**
 	 * Open the specified URL.
 	 * 
-	 * @param url
-	 *            URL to open
+	 * @param url URL to open
 	 */
 	protected void openUrl(String url) {
 		info("Open the URL [" + url + "]");
@@ -65,10 +64,8 @@ public class BasePage {
 	/**
 	 * Get the Hash String of the specified file.
 	 * 
-	 * @param file
-	 *            file whose hash is needed
-	 * @param hashType
-	 *            The hash type of the file
+	 * @param file     file whose hash is needed
+	 * @param hashType The hash type of the file
 	 * @return The hash of the specified file
 	 */
 	protected String getFileHash(File file, HashType hashType) {
@@ -84,8 +81,7 @@ public class BasePage {
 	/**
 	 * Switch to the newly opened window.
 	 * 
-	 * @param description
-	 *            description of the new window
+	 * @param description description of the new window
 	 */
 	protected void switchToWindow(String description) {
 		info("Switch to window [" + description + "]");
@@ -98,42 +94,37 @@ public class BasePage {
 	/**
 	 * Switch to the window containing the specified URL text.
 	 * 
-	 * @param description
-	 *            description of the new window
-	 * @param urlText
-	 *            URL text that the window contains
+	 * @param description description of the new window
+	 * @param urlText     URL text that the window contains
 	 */
 	protected void switchToWindowContainingUrlText(String description, String urlText) {
 		info("Switch to window [" + description + "] which contains URL text [" + urlText + "]");
 		parentWindow = getDriver().getWindowHandle();
-		getDriver().getWindowHandles().stream()
-				.map(getDriver().switchTo()::window)
+		getDriver().getWindowHandles().stream().map(getDriver().switchTo()::window)
 				.filter(driver -> driver.getCurrentUrl().contains(urlText)).findFirst()
-				.orElseThrow(() -> new NoSuchWindowException("Unable to find window [" + description + "] which contains URL text [" + urlText + "]"));
+				.orElseThrow(() -> new NoSuchWindowException(
+						"Unable to find window [" + description + "] which contains URL text [" + urlText + "]"));
 	}
 
 	/**
 	 * Switch to the window containing the specified title.
 	 * 
-	 * @param description
-	 *            description of the new window
-	 * @param title
-	 *            title that the window contains
+	 * @param description description of the new window
+	 * @param title       title that the window contains
 	 */
 	protected void switchToWindowContainingTitle(String description, String title) {
 		info("Switch to window [" + description + "] which contains title [" + title + "]");
 		parentWindow = getDriver().getWindowHandle();
-		getDriver().getWindowHandles().stream()
-				.map(getDriver().switchTo()::window)
+		getDriver().getWindowHandles().stream().map(getDriver().switchTo()::window)
 				.filter(driver -> driver.getTitle().contains(title)).findFirst()
-				.orElseThrow(() -> new NoSuchWindowException("Unable to find window [" + description + "] which contains title [" + title + "]"));
+				.orElseThrow(() -> new NoSuchWindowException(
+						"Unable to find window [" + description + "] which contains title [" + title + "]"));
 	}
 
 	/**
 	 * Switch to the Main window.
 	 * 
-	 * @param description
-	 *            Description of the main window
+	 * @param description description of the main window
 	 */
 	protected void switchToParentWindow(String description) {
 		info("Switch to parent window [" + description + "]");
@@ -143,10 +134,8 @@ public class BasePage {
 	/**
 	 * Switch to the frame containing the specified element.
 	 * 
-	 * @param description
-	 *            description of the frame
-	 * @param element
-	 *            element of the frame
+	 * @param description description of the frame
+	 * @param element     element of the frame
 	 */
 	protected void switchToFrame(Element element) {
 		info("Switch to frame [" + element.getDescription() + "]");
@@ -156,10 +145,8 @@ public class BasePage {
 	/**
 	 * Switch to the frame containing the specified name or ID.
 	 * 
-	 * @param description
-	 *            description of the frame
-	 * @param nameOrId
-	 *            name or ID of the frame
+	 * @param description description of the frame
+	 * @param nameOrId    name or ID of the frame
 	 */
 	protected void switchToFrame(String description, String nameOrId) {
 		info("Switch to frame [" + description + "]");
@@ -169,10 +156,8 @@ public class BasePage {
 	/**
 	 * Switch to the frame containing the specified index number.
 	 * 
-	 * @param description
-	 *            description of the frame
-	 * @param index
-	 *            index number of the frame
+	 * @param description description of the frame
+	 * @param index       index number of the frame
 	 */
 	protected void switchToFrame(String description, int index) {
 		info("Switch to frame [" + description + "]");
@@ -182,8 +167,7 @@ public class BasePage {
 	/**
 	 * Switch to the default window.
 	 * 
-	 * @param description
-	 *            description of the window
+	 * @param description description of the window
 	 */
 	protected void switchToDefaultContent(String description) {
 		info("Switch to main window [" + description + "]");

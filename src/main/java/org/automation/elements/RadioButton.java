@@ -15,13 +15,10 @@ import org.openqa.selenium.By;
 public class RadioButton extends Element {
 
 	/**
-	 * This Constructor is used to create an object to access a
-	 * <b>RadioButton</b>.
+	 * This Constructor is used to create an object to access a <b>RadioButton</b>.
 	 * 
-	 * @param description
-	 *            description of the RadioButton
-	 * @param locator
-	 *            locator of the RadioButton
+	 * @param description description of the RadioButton
+	 * @param locator     locator of the RadioButton
 	 */
 	public RadioButton(String description, By locator) {
 		super(description, locator);

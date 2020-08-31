@@ -18,8 +18,7 @@ public interface DriverSetup {
 	/**
 	 * Get the web driver object with the specified capabilities.
 	 * 
-	 * @param desiredCapabilities
-	 *            capabilities
+	 * @param desiredCapabilities capabilities
 	 * @return web driver instance
 	 */
 	WebDriver getWebDriverObject(Capabilities desiredCapabilities);
@@ -27,8 +26,7 @@ public interface DriverSetup {
 	/**
 	 * Get the desired capabilites with the specified proxy settings.
 	 * 
-	 * @param proxySetting
-	 *            proxy settings
+	 * @param proxySetting proxy settings
 	 * @return desired capabilities
 	 */
 	DesiredCapabilities getCapabilities(Proxy proxySetting);

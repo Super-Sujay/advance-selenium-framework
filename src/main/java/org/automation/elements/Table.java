@@ -26,10 +26,8 @@ public class Table extends Element {
 	/**
 	 * This constructor is used to create an object to access a <b>Table</b>.
 	 * 
-	 * @param description
-	 *            description of the table
-	 * @param locator
-	 *            locator of the table
+	 * @param description description of the table
+	 * @param locator     locator of the table
 	 */
 	public Table(String description, By locator) {
 		super(description, locator);
@@ -68,16 +66,19 @@ public class Table extends Element {
 	/**
 	 * Get the table data from the specified row and header.
 	 * 
-	 * @param row
-	 *            row in which data should be present
-	 * @param header
-	 *            header in which data should be present
+	 * @param row    row in which data should be present
+	 * @param header header in which data should be present
 	 * @return table data
 	 */
 	public String getTableData(String row, String header) {
-		info("Get the specific table data present in [" + row + "] row and [" + header + "] header from the [" + description + "] table");
-		if (headers.isEmpty()) getTableHeaders();
-		if (data.isEmpty()) getTableData();
+		info("Get the specific table data present in [" + row + "] row and [" + header + "] header from the ["
+				+ description + "] table");
+		if (headers.isEmpty()) {
+			getTableHeaders();
+		}
+		if (data.isEmpty()) {
+			getTableData();
+		}
 		if (headers.indexOf(header) != -1 && data.indexOf(row) != -1) {
 			int dataIndex = data.indexOf(row) + headers.indexOf(header);
 			return data.get(dataIndex);
@@ -88,19 +89,22 @@ public class Table extends Element {
 	/**
 	 * Get the table data from the specified row and header.
 	 * 
-	 * @param row
-	 *            row number in which data should be present
-	 * @param header
-	 *            header in which data should be present
+	 * @param row    row number in which data should be present
+	 * @param header header in which data should be present
 	 * @return table data
 	 */
 	public String getTableData(int row, String header) {
-		info("Get the specific table data present in [" + row + "] row number and [" + header + "] header from the [" + description + "] table");
-		if (headers.isEmpty()) getTableHeaders();
+		info("Get the specific table data present in [" + row + "] row number and [" + header + "] header from the ["
+				+ description + "] table");
+		if (headers.isEmpty()) {
+			getTableHeaders();
+		}
 		WebElement table = wait.until(elementToBeClickable(locator));
 		int column = headers.indexOf(header) + 1;
 		try {
-			return table.findElement(By.cssSelector("tbody > tr:nth-of-type(" + row + ") > td:nth-of-type(" + column + ")")).getText();
+			return table
+					.findElement(By.cssSelector("tbody > tr:nth-of-type(" + row + ") > td:nth-of-type(" + column + ")"))
+					.getText();
 		} catch (NoSuchElementException e) {
 			return "Incorrect row number or column header";
 		}
@@ -109,17 +113,18 @@ public class Table extends Element {
 	/**
 	 * Get the table data from the specified row and column.
 	 * 
-	 * @param row
-	 *            row number in which data should be present
-	 * @param column
-	 *            column number in which data should be present
+	 * @param row    row number in which data should be present
+	 * @param column column number in which data should be present
 	 * @return table data
 	 */
 	public String getTableData(int row, int column) {
-		info("Get the specific table data present in [" + row + "] row number and [" + column + "] column number from the [" + description + "] table");
+		info("Get the specific table data present in [" + row + "] row number and [" + column
+				+ "] column number from the [" + description + "] table");
 		WebElement table = wait.until(elementToBeClickable(locator));
 		try {
-			return table.findElement(By.cssSelector("tbody > tr:nth-of-type(" + row + ") > td:nth-of-type(" + column + ")")).getText();
+			return table
+					.findElement(By.cssSelector("tbody > tr:nth-of-type(" + row + ") > td:nth-of-type(" + column + ")"))
+					.getText();
 		} catch (NoSuchElementException e) {
 			return "Incorrect row or column number";
 		}

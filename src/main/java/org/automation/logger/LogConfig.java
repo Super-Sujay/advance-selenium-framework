@@ -29,8 +29,7 @@ public class LogConfig {
 	/**
 	 * Initialize the logger object.
 	 * 
-	 * @param path
-	 *            path of the log file
+	 * @param path path of the log file
 	 * @return the logger object
 	 */
 	private static Logger initializeLogger(String path) {
@@ -57,7 +56,8 @@ public class LogConfig {
 	 */
 	private static void initLogs() {
 		String runtime = now().format(ofPattern("MM.dd.yyyy.hh.mm.ss"));
-		String path = getProperty("user.dir") + File.separator + "target" + File.separator + "selenium-logs" + File.separator + runtime + ".log";
+		String path = getProperty("user.dir") + File.separator + "target" + File.separator + "selenium-logs"
+				+ File.separator + runtime + ".log";
 		log = initializeLogger(path);
 	}
 
@@ -67,8 +67,9 @@ public class LogConfig {
 	 * @return log instance
 	 */
 	public static Logger getLogger() {
-		if (log == null)
+		if (log == null) {
 			initLogs();
+		}
 		return log;
 	}
 

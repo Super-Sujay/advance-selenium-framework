@@ -25,10 +25,8 @@ public class Elements {
 	/**
 	 * This Constructor is used to create an object to access a <b>Text</b>.
 	 * 
-	 * @param description
-	 *            description of the text
-	 * @param locator
-	 *            locator of the text
+	 * @param description description of the text
+	 * @param locator     locator of the text
 	 */
 	public Elements(String description, By locator) {
 		this.description = description;
@@ -53,7 +51,8 @@ public class Elements {
 	 */
 	public String[] getTextFromAllElements() {
 		info("Get the list of text from [" + description + "]");
-		return wait.until(visibilityOfAllElementsLocatedBy(locator)).stream().map(WebElement::getText).toArray(String[]::new);
+		return wait.until(visibilityOfAllElementsLocatedBy(locator)).stream().map(WebElement::getText)
+				.toArray(String[]::new);
 	}
 
 }

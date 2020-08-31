@@ -1,6 +1,6 @@
 package org.automation.elements;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.nio.charset.Charset.defaultCharset;
 import static java.util.stream.Collectors.joining;
 import static org.automation.config.DriverFactory.getDriver;
 import static org.automation.logger.Log.info;
@@ -35,10 +35,8 @@ public class Element {
 	/**
 	 * To create a generic element.
 	 * 
-	 * @param description
-	 *            description of the element
-	 * @param locator
-	 *            locator of the element
+	 * @param description description of the element
+	 * @param locator     locator of the element
 	 */
 	public Element(String description, By locator) {
 		this.description = description;
@@ -78,8 +76,7 @@ public class Element {
 	/**
 	 * Get the value of the specified attribute.
 	 * 
-	 * @param attribute
-	 *            attribute whose value is needed
+	 * @param attribute attribute whose value is needed
 	 * @return value of the attribute
 	 */
 	public String getAttributeValue(String attribute) {
@@ -90,8 +87,7 @@ public class Element {
 	/**
 	 * Get the value of the specified CSS property.
 	 * 
-	 * @param property
-	 *            CSS property whose value is needed
+	 * @param property CSS property whose value is needed
 	 * @return value of the CSS property
 	 */
 	public String getCssPropertyValue(String property) {
@@ -176,8 +172,7 @@ public class Element {
 	/**
 	 * Drag the element to the specified destination element.
 	 * 
-	 * @param destination
-	 *            element to drop on
+	 * @param destination element to drop on
 	 */
 	public void dragTo(Element destination) {
 		info("Drag [" + description + "] element to [" + destination.description + "] element");
@@ -189,15 +184,14 @@ public class Element {
 	/**
 	 * Drag the element to the specified destination element using java script.
 	 * 
-	 * @param destination
-	 *            element to drop on
+	 * @param destination element to drop on
 	 */
 	public void dragToUsingJs(Element destination) {
 		info("Drag [" + description + "] element to [" + destination.description + "] element");
 		WebElement source = wait.until(elementToBeClickable(locator));
 		WebElement target = wait.until(elementToBeClickable(destination.locator));
 		InputStream in = getClass().getResourceAsStream("/dragdrop.txt");
-		InputStreamReader isr = new InputStreamReader(in, UTF_8);
+		InputStreamReader isr = new InputStreamReader(in, defaultCharset());
 		String dragDropJs = new BufferedReader(isr).lines().collect(joining("\n"));
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		js.executeScript(dragDropJs, source, target);

@@ -26,10 +26,8 @@ public class Image extends Element {
 	/**
 	 * This Constructor is used to create an object to access a <b>Button</b>.
 	 * 
-	 * @param description
-	 *            description of the Button
-	 * @param locator
-	 *            locator of the Button
+	 * @param description description of the Button
+	 * @param locator     locator of the Button
 	 */
 	public Image(String description, By locator) {
 		super(description, locator);
@@ -46,10 +44,8 @@ public class Image extends Element {
 	/**
 	 * Click on the image.
 	 * 
-	 * @param <T>
-	 *            the type of the page class
-	 * @param pageClass
-	 *            expected class of the page after the click
+	 * @param <T>       the type of the page class
+	 * @param pageClass expected class of the page after the click
 	 * @return the pageClass object
 	 */
 	public <T extends BasePage> T click(Class<T> pageClass) {
@@ -59,7 +55,8 @@ public class Image extends Element {
 			return pageClass.newInstance();
 		} catch (IllegalAccessException | InstantiationException e) {
 			error("Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
-			throw new RuntimeException("Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
+			throw new RuntimeException(
+					"Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
 		}
 	}
 

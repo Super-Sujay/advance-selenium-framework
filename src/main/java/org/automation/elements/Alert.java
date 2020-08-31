@@ -15,14 +15,13 @@ import org.openqa.selenium.TimeoutException;
  */
 public class Alert {
 
-	private String description;
-	private ExplicitWait wait;
+	private final String description;
+	private final ExplicitWait wait;
 
 	/**
 	 * This Constructor is used to create an object to access an <b>Alert</b>.
 	 * 
-	 * @param description
-	 *            Description of the Alert
+	 * @param description description of the Alert
 	 */
 	public Alert(String description) {
 		wait = new ExplicitWait();
@@ -74,8 +73,7 @@ public class Alert {
 	/**
 	 * Enter text in the alert.
 	 * 
-	 * @param textToEnter
-	 *            text to enter
+	 * @param textToEnter text to enter
 	 */
 	public void enterText(String textToEnter) {
 		info("Enter text [" + textToEnter + "] in the [" + description + "] text box");

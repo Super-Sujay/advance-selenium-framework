@@ -16,8 +16,7 @@ public class Log {
 	/**
 	 * Provides the information logs.
 	 * 
-	 * @param message
-	 *            information message
+	 * @param message information message
 	 */
 	public static void info(String message) {
 		getLogger().info(message);
@@ -27,10 +26,8 @@ public class Log {
 	/**
 	 * Provides the error logs.
 	 * 
-	 * @param message
-	 *            error message
-	 * @param error
-	 *            the exception to log, including its stack trace
+	 * @param message error message
+	 * @param error   the exception to log, including its stack trace
 	 */
 	public static void error(String message, Throwable error) {
 		getLogger().error(message, error);
@@ -40,8 +37,7 @@ public class Log {
 	/**
 	 * Provides the warning logs.
 	 * 
-	 * @param message
-	 *            warning message
+	 * @param message warning message
 	 */
 	public static void warn(String message) {
 		getLogger().warn(message);
@@ -51,8 +47,7 @@ public class Log {
 	/**
 	 * Provides the debug logs.
 	 * 
-	 * @param message
-	 *            debug message
+	 * @param message debug message
 	 */
 	public static void debug(String message) {
 		getLogger().debug(message);
@@ -62,10 +57,8 @@ public class Log {
 	/**
 	 * Provides the fatal logs.
 	 * 
-	 * @param message
-	 *            fatal messages
-	 * @param error
-	 *            the exception to log, including its stack trace
+	 * @param message fatal messages
+	 * @param error   the exception to log, including its stack trace
 	 */
 	public static void fatal(String message, Throwable error) {
 		getLogger().fatal(message, error);

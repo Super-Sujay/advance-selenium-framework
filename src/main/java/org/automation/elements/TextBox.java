@@ -18,10 +18,8 @@ public class TextBox extends Element {
 	/**
 	 * This Constructor is used to create an object to access a <b>Text Box</b>.
 	 * 
-	 * @param description
-	 *            description of the text box
-	 * @param locator
-	 *            locator of the text box
+	 * @param description description of the text box
+	 * @param locator     locator of the text box
 	 */
 	public TextBox(String description, By locator) {
 		super(description, locator);
@@ -30,8 +28,7 @@ public class TextBox extends Element {
 	/**
 	 * Enter text in the text box.
 	 * 
-	 * @param textToEnter
-	 *            text to enter
+	 * @param textToEnter text to enter
 	 */
 	public void enterText(String textToEnter) {
 		if (description.toLowerCase().contains("password"))

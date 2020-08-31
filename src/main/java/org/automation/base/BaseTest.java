@@ -6,9 +6,9 @@ import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
+import static org.automation.config.DriverFactory.clearCookies;
 import static org.automation.config.DriverFactory.closeDriverObjects;
 import static org.automation.config.DriverFactory.instantiateDriverObject;
-import static org.automation.config.DriverFactory.clearCookies;
 import static org.automation.logger.Log.error;
 
 import java.io.IOException;
@@ -70,8 +70,7 @@ public class BaseTest {
 	/**
 	 * Data Provider method to get data from Excel file.
 	 * 
-	 * @param method
-	 *            test method executed
+	 * @param method test method executed
 	 * @return excel data
 	 */
 	@DataProvider(name = "ExcelDataProvider")
@@ -83,7 +82,8 @@ public class BaseTest {
 		try {
 			Fillo fillo = new Fillo();
 			con = fillo.getConnection(pathName);
-			record = con.executeQuery("Select * from TestData where TestCase = '" + method.getDeclaringClass().getSimpleName() + "." + method.getName() + "'");
+			record = con.executeQuery("Select * from TestData where TestCase = '"
+					+ method.getDeclaringClass().getSimpleName() + "." + method.getName() + "'");
 			while (record.next()) {
 				Map<String, String> data = new HashMap<String, String>();
 				for (String field : record.getFieldNames())
@@ -104,8 +104,7 @@ public class BaseTest {
 	/**
 	 * Data Provider method to get data from CSV file.
 	 * 
-	 * @param method
-	 *            test method executed
+	 * @param method test method executed
 	 * @return CSV data
 	 */
 	@DataProvider(name = "CsvDataProvider")
@@ -115,8 +114,8 @@ public class BaseTest {
 		String pathName = "src" + separator + "test" + separator + "resources" + separator + "CsvData.csv";
 		try {
 			String[] keys = lines(get(pathName)).findFirst().orElseThrow(IOException::new).split(csvRegex);
-			List<String[]> dataLines = lines(get(pathName))
-					.filter(line -> line.startsWith(method.getDeclaringClass().getSimpleName() + "." + method.getName()))
+			List<String[]> dataLines = lines(get(pathName)).filter(
+					line -> line.startsWith(method.getDeclaringClass().getSimpleName() + "." + method.getName()))
 					.map(line -> line.split(csvRegex)).collect(toList());
 			for (String[] values : dataLines) {
 				Map<String, String> data = new HashMap<String, String>();
@@ -138,7 +137,8 @@ public class BaseTest {
 	 * @return user name
 	 */
 	protected String getUsername() {
-		return ofNullable(getProperty("username")).orElseThrow(() -> new NullPointerException("Username was not provided"));
+		return ofNullable(getProperty("username"))
+				.orElseThrow(() -> new NullPointerException("Username was not provided"));
 	}
 
 	/**
@@ -147,7 +147,8 @@ public class BaseTest {
 	 * @return password
 	 */
 	protected String getPassword() {
-		return ofNullable(getProperty("password")).orElseThrow(() -> new NullPointerException("Password was not provided"));
+		return ofNullable(getProperty("password"))
+				.orElseThrow(() -> new NullPointerException("Password was not provided"));
 	}
 
 }

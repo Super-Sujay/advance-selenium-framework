@@ -25,13 +25,10 @@ import org.openqa.selenium.By;
 public class HyperLink extends Element {
 
 	/**
-	 * This Constructor is used to create an object to access a
-	 * <b>Hyperlink</b>.
+	 * This Constructor is used to create an object to access a <b>Hyperlink</b>.
 	 * 
-	 * @param description
-	 *            description of the hyper link
-	 * @param locator
-	 *            locator of the hyper link
+	 * @param description description of the hyper link
+	 * @param locator     locator of the hyper link
 	 */
 	public HyperLink(String description, By locator) {
 		super(description, locator);
@@ -48,10 +45,8 @@ public class HyperLink extends Element {
 	/**
 	 * Click on the hyper link.
 	 * 
-	 * @param <T>
-	 *            the type of the page class
-	 * @param pageClass
-	 *            expected class of the page after the click
+	 * @param <T>       the type of the page class
+	 * @param pageClass expected class of the page after the click
 	 * @return the pageClass object
 	 */
 	public <T extends BasePage> T click(Class<T> pageClass) {
@@ -61,7 +56,8 @@ public class HyperLink extends Element {
 			return pageClass.newInstance();
 		} catch (IllegalAccessException | InstantiationException e) {
 			error("Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
-			throw new RuntimeException("Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
+			throw new RuntimeException(
+					"Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
 		}
 	}
 
@@ -87,8 +83,7 @@ public class HyperLink extends Element {
 	/**
 	 * Download file from the link.
 	 * 
-	 * @param extension
-	 *            extension of the downloaded file
+	 * @param extension extension of the downloaded file
 	 * @return downloaded file
 	 */
 	public File downloadedFile(String extension) {
@@ -109,8 +104,7 @@ public class HyperLink extends Element {
 	/**
 	 * Get the data present in the file downloaded from the link.
 	 * 
-	 * @param extension
-	 *            extension of the downloaded file
+	 * @param extension extension of the downloaded file
 	 * @return file data
 	 */
 	public String fileData(String extension) {
