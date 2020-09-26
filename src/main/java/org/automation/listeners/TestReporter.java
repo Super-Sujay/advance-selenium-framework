@@ -60,7 +60,7 @@ public class TestReporter implements IReporter {
 
 	@Override
 	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
-		init(xmlSuites);
+		this.init(xmlSuites);
 		for (ISuite suite : suites) {
 			Map<String, ISuiteResult> results = suite.getResults();
 			for (ISuiteResult result : results.values()) {
@@ -135,8 +135,8 @@ public class TestReporter implements IReporter {
 						error("Unable to add screenshot to extent report", e);
 					}
 				}
-				test.getModel().setStartTime(getTime(result.getStartMillis()));
-				test.getModel().setEndTime(getTime(result.getEndMillis()));
+				test.getModel().setStartTime(this.getTime(result.getStartMillis()));
+				test.getModel().setEndTime(this.getTime(result.getEndMillis()));
 			}
 		}
 	}

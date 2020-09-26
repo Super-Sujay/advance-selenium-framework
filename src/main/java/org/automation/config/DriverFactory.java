@@ -26,14 +26,7 @@ public class DriverFactory {
 	 * Initialize the web driver thread.
 	 */
 	public static void instantiateDriverObject() {
-		driverThread = new ThreadLocal<WebDriverThread>() {
-			@Override
-			protected WebDriverThread initialValue() {
-				WebDriverThread driverThread = new WebDriverThread();
-				driverThreadPool.add(driverThread);
-				return driverThread;
-			}
-		};
+		driverThread = ThreadLocal.withInitial(DriverFactory::createWebDriverThread);
 	}
 
 	/**
@@ -75,6 +68,17 @@ public class DriverFactory {
 	 */
 	public static void closeDriverObjects() {
 		driverThreadPool.forEach(WebDriverThread::quitDriver);
+	}
+
+	/**
+	 * Create a web driver thread object.
+	 * 
+	 * @return web driver thread object
+	 */
+	private static WebDriverThread createWebDriverThread() {
+		WebDriverThread webDriverThread = new WebDriverThread();
+		driverThreadPool.add(webDriverThread);
+		return webDriverThread;
 	}
 
 }

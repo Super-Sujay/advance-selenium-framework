@@ -32,7 +32,7 @@ public class LogConfig {
 	 * @param path path of the log file
 	 * @return the logger object
 	 */
-	private static Logger initializeLogger(String path) {
+	private static synchronized Logger initializeLogger(String path) {
 		Logger logger = Logger.getLogger("Logging");
 		logger.removeAllAppenders();
 		Logger.getRootLogger().removeAllAppenders();

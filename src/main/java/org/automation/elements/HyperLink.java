@@ -70,7 +70,7 @@ public class HyperLink extends Element {
 		info("Get the HTTP Link Status from the [" + description + "] link");
 		try {
 			FileDownloader downloadHandler = new FileDownloader(getDriver());
-			URI fileAsURI = new URI(getAttributeValue("href"));
+			URI fileAsURI = new URI(super.getAttributeValue("href"));
 			downloadHandler.setURI(fileAsURI);
 			downloadHandler.setHttpRequestMethod(RequestType.GET);
 			return downloadHandler.getLinkHttpStatus();
@@ -90,7 +90,7 @@ public class HyperLink extends Element {
 		info("Download the file from the [" + description + "] link");
 		try {
 			FileDownloader downloadHandler = new FileDownloader(getDriver());
-			URI fileAsURI = new URI(getAttributeValue("href"));
+			URI fileAsURI = new URI(super.getAttributeValue("href"));
 			downloadHandler.setURI(fileAsURI);
 			downloadHandler.setHttpRequestMethod(RequestType.GET);
 			return downloadHandler.downloadFile(extension);
@@ -111,7 +111,7 @@ public class HyperLink extends Element {
 		info("Get the Data present in the file from the [" + description + "] link");
 		try {
 			FileDownloader downloadHandler = new FileDownloader(getDriver());
-			URI fileAsURI = new URI(getAttributeValue("href"));
+			URI fileAsURI = new URI(super.getAttributeValue("href"));
 			downloadHandler.setURI(fileAsURI);
 			downloadHandler.setHttpRequestMethod(RequestType.GET);
 			return downloadHandler.getLinkHttpData(extension);
