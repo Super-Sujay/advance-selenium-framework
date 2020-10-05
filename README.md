@@ -4,7 +4,7 @@ This is an advance selenium automation framework which can be use for automating
 Implementation of this framework is provided in the [herokuapp testing](https://github.com/Super-Sujay/herokuapp-testing) project repository.
 
 ## Features
- - Page object model implementation (refer to the src/test/java folder for more reference).
+ - Page object model implementation.
  - Execution of tests using suite files.
  - Data handling using Excel(.xlsx) files as well as CSV(.csv) files.
  - Parallel execution of tests.
