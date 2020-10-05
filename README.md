@@ -8,6 +8,7 @@ Implementation of this framework is provided in the [herokuapp testing](https://
  - Execution of tests using suite files.
  - Data handling using Excel(.xlsx) files as well as CSV(.csv) files.
  - Parallel execution of tests.
+ - Custom Report creation using Extent Report.
  - Ability to connect to an external selenium grid.
  - Ability to connect to a web based application using proxy settings.
 
