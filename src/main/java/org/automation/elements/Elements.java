@@ -55,4 +55,14 @@ public class Elements {
 				.toArray(String[]::new);
 	}
 
+	/**
+	 * Get the number of elements present for the mentioned locator
+	 * 
+	 * @return number of elements
+	 */
+	public int getNumberOfElements() {
+		info("Get the number of [" + description + "] web elements");
+		return wait.until(visibilityOfAllElementsLocatedBy(locator)).size();
+	}
+
 }
