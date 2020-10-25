@@ -190,7 +190,7 @@ public class Element {
 		info("Drag [" + description + "] element to [" + destination.description + "] element");
 		WebElement source = wait.until(elementToBeClickable(locator));
 		WebElement target = wait.until(elementToBeClickable(destination.locator));
-		InputStream in = getClass().getResourceAsStream("/dragdrop.txt");
+		InputStream in = getClass().getResourceAsStream("/dragdrop.js");
 		InputStreamReader isr = new InputStreamReader(in, defaultCharset());
 		String dragDropJs = new BufferedReader(isr).lines().collect(joining("\n"));
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
