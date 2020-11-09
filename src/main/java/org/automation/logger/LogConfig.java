@@ -26,6 +26,8 @@ public class LogConfig {
 
 	private static Logger log;
 
+	private LogConfig() { }
+
 	/**
 	 * Initialize the logger object.
 	 * 

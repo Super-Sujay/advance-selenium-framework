@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
  * @since 08/31/2020
  *
  */
-public class CalculateOffsetPosition {
+public final class CalculateOffsetPosition {
 
 	private final WebElement parentElement;
 	private final WebElement childElement;

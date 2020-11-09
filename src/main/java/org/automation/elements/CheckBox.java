@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
  * @version 1.0.0
  * @since 06/11/2020
  */
-public class CheckBox extends Element {
+public final class CheckBox extends Element {
 
 	/**
 	 * This Constructor is used to create an object to access a <b>CheckBox</b>.

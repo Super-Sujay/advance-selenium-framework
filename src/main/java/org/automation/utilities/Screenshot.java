@@ -23,7 +23,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
 
-public class Screenshot {
+public final class Screenshot {
+
+	private Screenshot() { }
 
 	/**
 	 * Take <b>Screenshot</b> of the current page.

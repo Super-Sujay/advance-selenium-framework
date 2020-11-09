@@ -19,7 +19,7 @@ import org.openqa.selenium.NoSuchWindowException;
  * @since 6/11/2020
  *
  */
-public class BasePage {
+public abstract class BasePage {
 
 	private String parentWindow;
 

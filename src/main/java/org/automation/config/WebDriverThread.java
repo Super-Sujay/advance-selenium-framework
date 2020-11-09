@@ -33,7 +33,7 @@ import net.lightbody.bmp.BrowserMobProxyServer;
  * @since 6/11/2020
  *
  */
-public class WebDriverThread {
+public final class WebDriverThread {
 
 	private WebDriver driver;
 	private DriverType selectedDriverType;

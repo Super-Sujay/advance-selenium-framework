@@ -50,7 +50,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
  * @since 06/11/2020
  *
  */
-public class TestReporter implements IReporter {
+public final class TestReporter implements IReporter {
 
 	private ExtentReports extent;
 

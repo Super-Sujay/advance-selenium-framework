@@ -19,7 +19,9 @@ import java.nio.file.Path;
  * @since 08/31/2020
  *
  */
-public class CheckFileHash {
+public final class CheckFileHash {
+
+	private CheckFileHash() { }
 
 	/**
 	 * Generate the Hash string of the specified file.

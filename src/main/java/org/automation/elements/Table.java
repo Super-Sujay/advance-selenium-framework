@@ -19,7 +19,7 @@ import org.openqa.selenium.WebElement;
  * @version 1.0.0
  * @since 06/11/2020
  */
-public class Table extends Element {
+public final class Table extends Element {
 
 	private List<String> headers, data;
 

@@ -13,7 +13,7 @@ import org.openqa.selenium.TimeoutException;
  * @version 1.0.0
  * @since 06/11/2020
  */
-public class Alert {
+public final class Alert {
 
 	private final String description;
 	private final ExplicitWait wait;

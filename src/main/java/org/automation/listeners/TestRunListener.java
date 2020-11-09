@@ -18,7 +18,7 @@ import org.testng.ITestResult;
  * @since 06/11/2020
  *
  */
-public class TestRunListener implements ITestListener, ISuiteListener {
+public final class TestRunListener implements ITestListener, ISuiteListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {

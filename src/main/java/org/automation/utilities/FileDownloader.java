@@ -43,7 +43,7 @@ import org.openqa.selenium.WebDriver;
  * @since 08/31/2020
  *
  */
-public class FileDownloader {
+public final class FileDownloader {
 
 	private WebDriver driver;
 	private RequestType httpRequestMethod = GET;

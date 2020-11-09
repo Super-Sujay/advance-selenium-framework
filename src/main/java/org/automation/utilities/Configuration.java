@@ -23,6 +23,8 @@ public final class Configuration {
 
 	private static Properties properties;
 
+	private Configuration() { }
+
 	/**
 	 * Load the properties present in configuration file.
 	 */

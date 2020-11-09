@@ -12,7 +12,7 @@ import org.openqa.selenium.By;
  * @version 1.0.0
  * @since 06/11/2020
  */
-public class RadioButton extends Element {
+public final class RadioButton extends Element {
 
 	/**
 	 * This Constructor is used to create an object to access a <b>RadioButton</b>.

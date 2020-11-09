@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
  * @version 1.0.0
  * @since 06/11/2020
  */
-public class Elements {
+public final class Elements {
 
 	private final String description;
 	private final By locator;

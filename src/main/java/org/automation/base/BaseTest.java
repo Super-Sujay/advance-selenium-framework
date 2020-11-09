@@ -41,7 +41,7 @@ import com.codoid.products.fillo.Recordset;
  *
  */
 @Listeners({ TestRunListener.class, TestReporter.class })
-public class BaseTest {
+public abstract class BaseTest {
 
 	/**
 	 * Method to execute at the start of the suite execution.

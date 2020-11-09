@@ -17,10 +17,12 @@ import net.lightbody.bmp.BrowserMobProxy;
  * @since 6/11/2020
  *
  */
-public class DriverFactory {
+public final class DriverFactory {
 
 	private static List<WebDriverThread> driverThreadPool = synchronizedList(new ArrayList<WebDriverThread>());
 	private static ThreadLocal<WebDriverThread> driverThread;
+
+	private DriverFactory() { }
 
 	/**
 	 * Initialize the web driver thread.

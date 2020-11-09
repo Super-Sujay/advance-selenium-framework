@@ -16,7 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @since 08/31/2020
  *
  */
-public class ExplicitWait {
+public final class ExplicitWait {
 
 	private long timeout, polling;
 	private Wait<WebDriver> wait;

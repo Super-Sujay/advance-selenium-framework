@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.Select;
  * @version 1.0.0
  * @since 06/11/2020
  */
-public class DropDown extends Element {
+public final class DropDown extends Element {
 
 	/**
 	 * This Constructor is used to create an object to access a <b>Drop Down</b>.
