@@ -11,8 +11,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Dependency versions -->
-		<selenium.version>3.14.0</selenium.version>
-		<testng.version>6.14.3</testng.version>
+		<selenium.version>3.141.59</selenium.version>
+		<testng.version>7.3.0</testng.version>
 		<browsermob.core.version>2.1.5</browsermob.core.version>
 		<browsermob.proxy.version>2.1.0-beta-6</browsermob.proxy.version>
 	</properties>
