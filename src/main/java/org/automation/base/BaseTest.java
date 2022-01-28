@@ -86,9 +86,11 @@ public abstract class BaseTest {
 					+ method.getDeclaringClass().getSimpleName() + "." + method.getName() + "'");
 			while (record.next()) {
 				Map<String, String> data = new HashMap<String, String>();
-				for (String field : record.getFieldNames())
-					if (!record.getField(field).isEmpty())
+				for (String field : record.getFieldNames()) {
+					if (!record.getField(field).isEmpty()) {
 						data.put(field, record.getField(field));
+					}
+				}
 				excelData.add(new Object[] { data });
 			}
 		} catch (FilloException e) {
@@ -119,9 +121,11 @@ public abstract class BaseTest {
 					.map(line -> line.split(csvRegex)).collect(toList());
 			for (String[] values : dataLines) {
 				Map<String, String> data = new HashMap<String, String>();
-				for (int i = 1; i < keys.length; i++)
-					if (!values[i].isEmpty())
+				for (int i = 1; i < keys.length; i++) {
+					if (!values[i].isEmpty()) {
 						data.put(keys[i], values[i]);
+					}
+				}
 				csvData.add(new Object[] { data });
 			}
 		} catch (IOException e) {

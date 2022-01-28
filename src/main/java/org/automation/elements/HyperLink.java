@@ -1,8 +1,6 @@
 package org.automation.elements;
 
 import static org.automation.config.DriverFactory.getDriver;
-import static org.automation.logger.Log.error;
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import java.io.File;
@@ -11,6 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.automation.base.BasePage;
+import org.automation.logger.Log;
 import org.automation.utilities.FileDownloader;
 import org.automation.utilities.RequestType;
 import org.openqa.selenium.By;
@@ -38,7 +37,7 @@ public final class HyperLink extends Element {
 	 * Click on the hyper link.
 	 */
 	public void click() {
-		info("Click [" + description + "] link");
+		Log.info("Click [" + description + "] link");
 		wait.until(elementToBeClickable(locator)).click();
 	}
 
@@ -50,12 +49,12 @@ public final class HyperLink extends Element {
 	 * @return the pageClass object
 	 */
 	public <T extends BasePage> T click(Class<T> pageClass) {
-		info("Click [" + description + "] link");
+		Log.info("Click [" + description + "] link");
 		try {
 			wait.until(elementToBeClickable(locator)).click();
 			return pageClass.newInstance();
 		} catch (IllegalAccessException | InstantiationException e) {
-			error("Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
+			Log.error("Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
 			throw new RuntimeException(
 					"Unable to create instance of the page class [" + pageClass.getSimpleName() + "]", e);
 		}
@@ -67,7 +66,7 @@ public final class HyperLink extends Element {
 	 * @return HTTP Status
 	 */
 	public int httpStatus() {
-		info("Get the HTTP Link Status from the [" + description + "] link");
+		Log.info("Get the HTTP Link Status from the [" + description + "] link");
 		try {
 			FileDownloader downloadHandler = new FileDownloader(getDriver());
 			URI fileAsURI = new URI(super.getAttributeValue("href"));
@@ -75,7 +74,7 @@ public final class HyperLink extends Element {
 			downloadHandler.setHttpRequestMethod(RequestType.GET);
 			return downloadHandler.getLinkHttpStatus();
 		} catch (URISyntaxException | IOException e) {
-			error("Unable to get the HTTP Link Status from [" + description + "] link", e);
+			Log.error("Unable to get the HTTP Link Status from [" + description + "] link", e);
 			return 500;
 		}
 	}
@@ -87,7 +86,7 @@ public final class HyperLink extends Element {
 	 * @return downloaded file
 	 */
 	public File downloadedFile(String extension) {
-		info("Download the file from the [" + description + "] link");
+		Log.info("Download the file from the [" + description + "] link");
 		try {
 			FileDownloader downloadHandler = new FileDownloader(getDriver());
 			URI fileAsURI = new URI(super.getAttributeValue("href"));
@@ -95,10 +94,9 @@ public final class HyperLink extends Element {
 			downloadHandler.setHttpRequestMethod(RequestType.GET);
 			return downloadHandler.downloadFile(extension);
 		} catch (URISyntaxException | IOException e) {
-			error("Unable to download file present in the [" + description + "] link", e);
+			Log.error("Unable to download file present in the [" + description + "] link", e);
 			return null;
 		}
-
 	}
 
 	/**
@@ -108,7 +106,7 @@ public final class HyperLink extends Element {
 	 * @return file data
 	 */
 	public String fileData(String extension) {
-		info("Get the Data present in the file from the [" + description + "] link");
+		Log.info("Get the Data present in the file from the [" + description + "] link");
 		try {
 			FileDownloader downloadHandler = new FileDownloader(getDriver());
 			URI fileAsURI = new URI(super.getAttributeValue("href"));
@@ -116,7 +114,7 @@ public final class HyperLink extends Element {
 			downloadHandler.setHttpRequestMethod(RequestType.GET);
 			return downloadHandler.getLinkHttpData(extension);
 		} catch (URISyntaxException | IOException e) {
-			error("Unable to get the Data present in the file from the [" + description + "] link", e);
+			Log.error("Unable to get the Data present in the file from the [" + description + "] link", e);
 			return "Unable to get the Data present in the file from the [" + description + "] link";
 		}
 	}

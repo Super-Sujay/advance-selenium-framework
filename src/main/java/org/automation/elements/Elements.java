@@ -1,10 +1,10 @@
 package org.automation.elements;
 
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 import java.util.List;
 
+import org.automation.logger.Log;
 import org.automation.utilities.ExplicitWait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -40,7 +40,7 @@ public final class Elements {
 	 * @return list of web elements
 	 */
 	public List<WebElement> getWebElements() {
-		info("Get the list of [" + description + "] web elements");
+		Log.info("Get the list of [" + description + "] web elements");
 		return wait.until(visibilityOfAllElementsLocatedBy(locator));
 	}
 
@@ -50,7 +50,7 @@ public final class Elements {
 	 * @return list of texts
 	 */
 	public String[] getTextFromAllElements() {
-		info("Get the list of text from [" + description + "]");
+		Log.info("Get the list of text from [" + description + "]");
 		return wait.until(visibilityOfAllElementsLocatedBy(locator)).stream().map(WebElement::getText)
 				.toArray(String[]::new);
 	}
@@ -61,7 +61,7 @@ public final class Elements {
 	 * @return number of elements
 	 */
 	public int getNumberOfElements() {
-		info("Get the number of [" + description + "] web elements");
+		Log.info("Get the number of [" + description + "] web elements");
 		return wait.until(visibilityOfAllElementsLocatedBy(locator)).size();
 	}
 

@@ -137,6 +137,7 @@ public final class FileDownloader {
 			switch (extension) {
 			case ".txt":
 				data = EntityUtils.toString(downloadableFile.getEntity());
+				break;
 			case ".pdf":
 				if (downloadableFile.getEntity().getContentType().getValue().equals("application/pdf")) {
 					PDDocument document = load(downloadableFile.getEntity().getContent());
@@ -147,6 +148,7 @@ public final class FileDownloader {
 					}
 					document.close();
 				}
+				break;
 			default:
 				data = "Unable to get Data for " + extension + " extension!";
 			}

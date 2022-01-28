@@ -1,8 +1,8 @@
 package org.automation.elements;
 
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
 
+import org.automation.logger.Log;
 import org.automation.utilities.ExplicitWait;
 import org.openqa.selenium.TimeoutException;
 
@@ -34,12 +34,12 @@ public final class Alert {
 	 * @return true if present, false otherwise
 	 */
 	public boolean isPresent() {
-		info("Check for Alert [" + description + "] to be present");
+		Log.info("Check for Alert [" + description + "] to be present");
 		try {
 			wait.until(alertIsPresent());
 			return true;
 		} catch (TimeoutException e) {
-			info("Alert [" + description + "] is not present");
+			Log.info("Alert [" + description + "] is not present");
 			return false;
 		}
 	}
@@ -48,7 +48,7 @@ public final class Alert {
 	 * Accept the alert.
 	 */
 	public void accept() {
-		info("Accept the [" + description + "] alert");
+		Log.info("Accept the [" + description + "] alert");
 		wait.until(alertIsPresent()).accept();
 	}
 
@@ -56,7 +56,7 @@ public final class Alert {
 	 * Dismiss the alert.
 	 */
 	public void dismiss() {
-		info("Dismiss the [" + description + "] alert");
+		Log.info("Dismiss the [" + description + "] alert");
 		wait.until(alertIsPresent()).dismiss();
 	}
 
@@ -66,7 +66,7 @@ public final class Alert {
 	 * @return the text
 	 */
 	public String getText() {
-		info("Get the text from the [" + description + "] alert");
+		Log.info("Get the text from the [" + description + "] alert");
 		return wait.until(alertIsPresent()).getText();
 	}
 
@@ -76,7 +76,7 @@ public final class Alert {
 	 * @param textToEnter text to enter
 	 */
 	public void enterText(String textToEnter) {
-		info("Enter text [" + textToEnter + "] in the [" + description + "] text box");
+		Log.info("Enter text [" + textToEnter + "] in the [" + description + "] text box");
 		wait.until(alertIsPresent()).sendKeys(textToEnter);
 	}
 

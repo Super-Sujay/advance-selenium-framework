@@ -1,13 +1,14 @@
 package org.automation.elements;
 
-import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
-import static org.automation.logger.Log.info;
+import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.tagName;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.automation.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -31,8 +32,8 @@ public final class Table extends Element {
 	 */
 	public Table(String description, By locator) {
 		super(description, locator);
-		headers = asList();
-		data = asList();
+		headers = Arrays.asList();
+		data = Arrays.asList();
 	}
 
 	/**
@@ -42,7 +43,7 @@ public final class Table extends Element {
 	 */
 	public List<String> getTableHeaders() {
 		if (headers.isEmpty()) {
-			info("Get all the table headers from the [" + description + "] table");
+			Log.info("Get all the table headers from the [" + description + "] table");
 			WebElement table = wait.until(elementToBeClickable(locator));
 			headers = table.findElements(tagName("th")).stream().map(WebElement::getText).collect(toList());
 		}
@@ -56,7 +57,7 @@ public final class Table extends Element {
 	 */
 	public List<String> getTableData() {
 		if (data.isEmpty()) {
-			info("Get all the table data from the [" + description + "] table");
+			Log.info("Get all the table data from the [" + description + "] table");
 			WebElement table = wait.until(elementToBeClickable(locator));
 			data = table.findElements(tagName("td")).stream().map(WebElement::getText).collect(toList());
 		}
@@ -71,7 +72,7 @@ public final class Table extends Element {
 	 * @return table data
 	 */
 	public String getTableData(String row, String header) {
-		info("Get the specific table data present in [" + row + "] row and [" + header + "] header from the ["
+		Log.info("Get the specific table data present in [" + row + "] row and [" + header + "] header from the ["
 				+ description + "] table");
 		if (headers.isEmpty()) {
 			getTableHeaders();
@@ -94,7 +95,7 @@ public final class Table extends Element {
 	 * @return table data
 	 */
 	public String getTableData(int row, String header) {
-		info("Get the specific table data present in [" + row + "] row number and [" + header + "] header from the ["
+		Log.info("Get the specific table data present in [" + row + "] row number and [" + header + "] header from the ["
 				+ description + "] table");
 		if (headers.isEmpty()) {
 			getTableHeaders();
@@ -103,7 +104,7 @@ public final class Table extends Element {
 		int column = headers.indexOf(header) + 1;
 		try {
 			return table
-					.findElement(By.cssSelector("tbody > tr:nth-of-type(" + row + ") > td:nth-of-type(" + column + ")"))
+					.findElement(cssSelector("tbody > tr:nth-of-type(" + row + ") > td:nth-of-type(" + column + ")"))
 					.getText();
 		} catch (NoSuchElementException e) {
 			return "Incorrect row number or column header";
@@ -118,12 +119,12 @@ public final class Table extends Element {
 	 * @return table data
 	 */
 	public String getTableData(int row, int column) {
-		info("Get the specific table data present in [" + row + "] row number and [" + column
+		Log.info("Get the specific table data present in [" + row + "] row number and [" + column
 				+ "] column number from the [" + description + "] table");
 		WebElement table = wait.until(elementToBeClickable(locator));
 		try {
 			return table
-					.findElement(By.cssSelector("tbody > tr:nth-of-type(" + row + ") > td:nth-of-type(" + column + ")"))
+					.findElement(cssSelector("tbody > tr:nth-of-type(" + row + ") > td:nth-of-type(" + column + ")"))
 					.getText();
 		} catch (NoSuchElementException e) {
 			return "Incorrect row or column number";

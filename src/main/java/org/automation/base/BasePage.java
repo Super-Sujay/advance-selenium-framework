@@ -1,13 +1,12 @@
 package org.automation.base;
 
 import static org.automation.config.DriverFactory.getDriver;
-import static org.automation.logger.Log.error;
-import static org.automation.logger.Log.info;
-import static org.automation.utilities.CheckFileHash.generateHashForFileOfType;
 
 import java.io.File;
 
 import org.automation.elements.Element;
+import org.automation.logger.Log;
+import org.automation.utilities.CheckFileHash;
 import org.automation.utilities.HashType;
 import org.openqa.selenium.NoSuchWindowException;
 
@@ -29,7 +28,7 @@ public abstract class BasePage {
 	 * @param url URL to open
 	 */
 	protected void openUrl(String url) {
-		info("Open the URL [" + url + "]");
+		Log.info("Open the URL [" + url + "]");
 		getDriver().get(url);
 	}
 
@@ -39,7 +38,7 @@ public abstract class BasePage {
 	 * @return page URL
 	 */
 	protected String getPageUrl() {
-		info("Get the Current URL");
+		Log.info("Get the Current URL");
 		return getDriver().getCurrentUrl();
 	}
 
@@ -49,7 +48,7 @@ public abstract class BasePage {
 	 * @return page title
 	 */
 	protected String getPageTitle() {
-		info("Get the Current Page Title");
+		Log.info("Get the Current Page Title");
 		return getDriver().getTitle();
 	}
 
@@ -57,7 +56,7 @@ public abstract class BasePage {
 	 * Refresh the current page.
 	 */
 	protected void refreshPage() {
-		info("Refresh the browser");
+		Log.info("Refresh the browser");
 		getDriver().navigate().refresh();
 	}
 
@@ -69,11 +68,11 @@ public abstract class BasePage {
 	 * @return The hash of the specified file
 	 */
 	protected String getFileHash(File file, HashType hashType) {
-		info("Get the hash of the [" + file.getName() + "] file");
+		Log.info("Get the hash of the [" + file.getName() + "] file");
 		try {
-			return generateHashForFileOfType(file, hashType);
+			return CheckFileHash.generateHashForFileOfType(file, hashType);
 		} catch (RuntimeException e) {
-			error("Unable to get the hash of the [" + file.getName() + "] file", e);
+			Log.error("Unable to get the hash of the [" + file.getName() + "] file", e);
 			return e.getMessage();
 		}
 	}
@@ -84,7 +83,7 @@ public abstract class BasePage {
 	 * @param description description of the new window
 	 */
 	protected void switchToWindow(String description) {
-		info("Switch to window [" + description + "]");
+		Log.info("Switch to window [" + description + "]");
 		parentWindow = getDriver().getWindowHandle();
 		for (String windowHandle : getDriver().getWindowHandles())
 			if (!windowHandle.equals(parentWindow))
@@ -98,7 +97,7 @@ public abstract class BasePage {
 	 * @param urlText     URL text that the window contains
 	 */
 	protected void switchToWindowContainingUrlText(String description, String urlText) {
-		info("Switch to window [" + description + "] which contains URL text [" + urlText + "]");
+		Log.info("Switch to window [" + description + "] which contains URL text [" + urlText + "]");
 		parentWindow = getDriver().getWindowHandle();
 		getDriver().getWindowHandles().stream().map(getDriver().switchTo()::window)
 				.filter(driver -> driver.getCurrentUrl().contains(urlText)).findFirst()
@@ -113,7 +112,7 @@ public abstract class BasePage {
 	 * @param title       title that the window contains
 	 */
 	protected void switchToWindowContainingTitle(String description, String title) {
-		info("Switch to window [" + description + "] which contains title [" + title + "]");
+		Log.info("Switch to window [" + description + "] which contains title [" + title + "]");
 		parentWindow = getDriver().getWindowHandle();
 		getDriver().getWindowHandles().stream().map(getDriver().switchTo()::window)
 				.filter(driver -> driver.getTitle().contains(title)).findFirst()
@@ -127,7 +126,7 @@ public abstract class BasePage {
 	 * @param description description of the main window
 	 */
 	protected void switchToParentWindow(String description) {
-		info("Switch to parent window [" + description + "]");
+		Log.info("Switch to parent window [" + description + "]");
 		getDriver().switchTo().window(parentWindow);
 	}
 
@@ -138,7 +137,7 @@ public abstract class BasePage {
 	 * @param element     element of the frame
 	 */
 	protected void switchToFrame(Element element) {
-		info("Switch to frame [" + element.getDescription() + "]");
+		Log.info("Switch to frame [" + element.getDescription() + "]");
 		getDriver().switchTo().frame(element.getWebElement());
 	}
 
@@ -149,7 +148,7 @@ public abstract class BasePage {
 	 * @param nameOrId    name or ID of the frame
 	 */
 	protected void switchToFrame(String description, String nameOrId) {
-		info("Switch to frame [" + description + "]");
+		Log.info("Switch to frame [" + description + "]");
 		getDriver().switchTo().frame(nameOrId);
 	}
 
@@ -160,7 +159,7 @@ public abstract class BasePage {
 	 * @param index       index number of the frame
 	 */
 	protected void switchToFrame(String description, int index) {
-		info("Switch to frame [" + description + "]");
+		Log.info("Switch to frame [" + description + "]");
 		getDriver().switchTo().frame(index);
 	}
 
@@ -170,7 +169,7 @@ public abstract class BasePage {
 	 * @param description description of the window
 	 */
 	protected void switchToDefaultContent(String description) {
-		info("Switch to main window [" + description + "]");
+		Log.info("Switch to main window [" + description + "]");
 		getDriver().switchTo().defaultContent();
 	}
 

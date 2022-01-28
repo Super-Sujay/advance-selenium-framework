@@ -1,9 +1,7 @@
 package org.automation.elements;
 
-import static java.nio.charset.Charset.defaultCharset;
 import static java.util.stream.Collectors.joining;
 import static org.automation.config.DriverFactory.getDriver;
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
@@ -11,7 +9,9 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
+import org.automation.logger.Log;
 import org.automation.utilities.ExplicitWait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -59,7 +59,7 @@ public class Element {
 	 * @return web element
 	 */
 	public WebElement getWebElement() {
-		info("Get the [" + description + "] web element");
+		Log.info("Get the [" + description + "] web element");
 		return wait.until(visibilityOfElementLocated(locator));
 	}
 
@@ -69,7 +69,7 @@ public class Element {
 	 * @return the text.
 	 */
 	public String getText() {
-		info("Get text from [" + description + "] element");
+		Log.info("Get text from [" + description + "] element");
 		return wait.until(visibilityOfElementLocated(locator)).getText();
 	}
 
@@ -80,7 +80,7 @@ public class Element {
 	 * @return value of the attribute
 	 */
 	public String getAttributeValue(String attribute) {
-		info("Get the value of the attribute [" + attribute + "] from [" + description + "] element");
+		Log.info("Get the value of the attribute [" + attribute + "] from [" + description + "] element");
 		return wait.until(visibilityOfElementLocated(locator)).getAttribute(attribute);
 	}
 
@@ -91,7 +91,7 @@ public class Element {
 	 * @return value of the CSS property
 	 */
 	public String getCssPropertyValue(String property) {
-		info("Get the value of the property [" + property + "] from [" + description + "] element");
+		Log.info("Get the value of the property [" + property + "] from [" + description + "] element");
 		return wait.until(visibilityOfElementLocated(locator)).getCssValue(property);
 	}
 
@@ -101,7 +101,7 @@ public class Element {
 	 * @return true if visible, false otherwise
 	 */
 	public boolean isVisible() {
-		info("Is [" + description + "] element visible");
+		Log.info("Is [" + description + "] element visible");
 		try {
 			return wait.until(visibilityOfElementLocated(locator)).isDisplayed();
 		} catch (TimeoutException e) {
@@ -115,7 +115,7 @@ public class Element {
 	 * @return true if invisible, false otherwise
 	 */
 	public boolean isInvisible() {
-		info("Is [" + description + "] element invisible");
+		Log.info("Is [" + description + "] element invisible");
 		try {
 			return wait.until(invisibilityOfElementLocated(locator));
 		} catch (TimeoutException e) {
@@ -129,7 +129,7 @@ public class Element {
 	 * @return true if enabled, false otherwise
 	 */
 	public boolean isEnabled() {
-		info("Is [" + description + "] element enabled");
+		Log.info("Is [" + description + "] element enabled");
 		try {
 			return wait.until(driver -> driver.findElement(locator).isEnabled());
 		} catch (TimeoutException e) {
@@ -143,7 +143,7 @@ public class Element {
 	 * @return true if disabled, false otherwise
 	 */
 	public boolean isDisabled() {
-		info("Is [" + description + "] element disabled");
+		Log.info("Is [" + description + "] element disabled");
 		try {
 			return wait.until(driver -> !driver.findElement(locator).isEnabled());
 		} catch (TimeoutException e) {
@@ -155,7 +155,7 @@ public class Element {
 	 * Move the mouse pointer to the element.
 	 */
 	public void moveMousePointer() {
-		info("Move mouse to [" + description + "] element");
+		Log.info("Move mouse to [" + description + "] element");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		new Actions(getDriver()).moveToElement(element).perform();
 	}
@@ -164,7 +164,7 @@ public class Element {
 	 * Right click on an element.
 	 */
 	public void rightClick() {
-		info("Right click [" + description + "] element");
+		Log.info("Right click [" + description + "] element");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		new Actions(getDriver()).contextClick(element).perform();
 	}
@@ -175,7 +175,7 @@ public class Element {
 	 * @param destination element to drop on
 	 */
 	public void dragTo(Element destination) {
-		info("Drag [" + description + "] element to [" + destination.description + "] element");
+		Log.info("Drag [" + description + "] element to [" + destination.description + "] element");
 		WebElement source = wait.until(elementToBeClickable(locator));
 		WebElement target = wait.until(elementToBeClickable(destination.locator));
 		new Actions(getDriver()).dragAndDrop(source, target).perform();
@@ -187,11 +187,11 @@ public class Element {
 	 * @param destination element to drop on
 	 */
 	public void dragToUsingJs(Element destination) {
-		info("Drag [" + description + "] element to [" + destination.description + "] element");
+		Log.info("Drag [" + description + "] element to [" + destination.description + "] element");
 		WebElement source = wait.until(elementToBeClickable(locator));
 		WebElement target = wait.until(elementToBeClickable(destination.locator));
 		InputStream in = getClass().getResourceAsStream("/dragdrop.js");
-		InputStreamReader isr = new InputStreamReader(in, defaultCharset());
+		InputStreamReader isr = new InputStreamReader(in, Charset.defaultCharset());
 		String dragDropJs = new BufferedReader(isr).lines().collect(joining("\n"));
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		js.executeScript(dragDropJs, source, target);

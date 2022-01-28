@@ -1,8 +1,8 @@
 package org.automation.elements;
 
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+import org.automation.logger.Log;
 import org.openqa.selenium.By;
 
 /**
@@ -28,7 +28,7 @@ public final class RadioButton extends Element {
 	 * Click on the radio button.
 	 */
 	public void click() {
-		info("Click [" + description + "] radio button");
+		Log.info("Click [" + description + "] radio button");
 		wait.until(elementToBeClickable(locator)).click();
 	}
 
@@ -38,7 +38,7 @@ public final class RadioButton extends Element {
 	 * @return true if selected, false otherwise
 	 */
 	public boolean isSelected() {
-		info("Is [" + description + "] radio button selected");
+		Log.info("Is [" + description + "] radio button selected");
 		return wait.until(elementToBeClickable(locator)).isSelected();
 	}
 }

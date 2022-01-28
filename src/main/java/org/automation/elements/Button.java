@@ -1,10 +1,9 @@
 package org.automation.elements;
 
-import static org.automation.logger.Log.error;
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import org.automation.base.BasePage;
+import org.automation.logger.Log;
 import org.openqa.selenium.By;
 
 /**
@@ -30,7 +29,7 @@ public final class Button extends Element {
 	 * Click on the button.
 	 */
 	public void click() {
-		info("Click [" + description + "] button");
+		Log.info("Click [" + description + "] button");
 		wait.until(elementToBeClickable(locator)).click();
 	}
 
@@ -42,12 +41,12 @@ public final class Button extends Element {
 	 * @return the pageClass object
 	 */
 	public <T extends BasePage> T click(Class<T> pageClass) {
-		info("Click [" + description + "] button");
+		Log.info("Click [" + description + "] button");
 		try {
 			wait.until(elementToBeClickable(locator)).click();
 			return pageClass.newInstance();
 		} catch (IllegalAccessException | InstantiationException e) {
-			error("Unable to create instance of the page class", e);
+			Log.error("Unable to create instance of the page class", e);
 			throw new RuntimeException("Unable to create instance of the page class", e);
 		}
 	}

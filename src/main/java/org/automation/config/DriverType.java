@@ -1,13 +1,20 @@
 package org.automation.config;
 
+import static org.openqa.selenium.UnexpectedAlertBehaviour.ACCEPT;
+import static org.openqa.selenium.ie.InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING;
+import static org.openqa.selenium.ie.InternetExplorerDriver.IGNORE_ZOOM_SETTING;
+import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
+import static org.openqa.selenium.ie.InternetExplorerDriver.NATIVE_EVENTS;
+import static org.openqa.selenium.ie.InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Proxy;
-import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -52,6 +59,27 @@ public enum DriverType implements DriverSetup {
 	},
 
 	/**
+	 * This is the Edge browser driver implementation.
+	 */
+	EDGE {
+
+		@Override
+		public WebDriver getWebDriverObject(Capabilities desiredCapabilities) {
+			EdgeOptions options = new EdgeOptions();
+			options.merge(desiredCapabilities);
+			WebDriverManager.edgedriver().setup();
+			return new EdgeDriver(options);
+		}
+
+		@Override
+		public DesiredCapabilities getCapabilities(Proxy proxySetting) {
+			DesiredCapabilities capabilities = DesiredCapabilities.edge();
+			return addProxySettings(capabilities, proxySetting);
+		}
+
+	},
+
+	/**
 	 * This is the Internet Explorer browser driver implementation.
 	 */
 	IE {
@@ -66,12 +94,11 @@ public enum DriverType implements DriverSetup {
 		@Override
 		public DesiredCapabilities getCapabilities(Proxy proxySetting) {
 			DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-			capabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, true);
-			capabilities.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR,
-					UnexpectedAlertBehaviour.ACCEPT);
-			capabilities.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
-			capabilities.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
-			capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+			capabilities.setCapability(NATIVE_EVENTS, true);
+			capabilities.setCapability(UNEXPECTED_ALERT_BEHAVIOR, ACCEPT);
+			capabilities.setCapability(ENABLE_PERSISTENT_HOVERING, true);
+			capabilities.setCapability(IGNORE_ZOOM_SETTING, true);
+			capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
 			capabilities.setCapability("ignoreProtectedModeSettings", true);
 			return addProxySettings(capabilities, proxySetting);
 		}
@@ -146,8 +173,9 @@ public enum DriverType implements DriverSetup {
 	 * @return desired capabilities
 	 */
 	protected DesiredCapabilities addProxySettings(DesiredCapabilities capabilities, Proxy proxySetting) {
-		if (proxySetting != null)
+		if (proxySetting != null) {
 			capabilities.setCapability(PROXY, proxySetting);
+		}
 		return capabilities;
 	}
 

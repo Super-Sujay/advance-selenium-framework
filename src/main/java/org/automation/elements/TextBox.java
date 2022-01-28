@@ -1,8 +1,8 @@
 package org.automation.elements;
 
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+import org.automation.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -32,9 +32,9 @@ public final class TextBox extends Element {
 	 */
 	public void enterText(String textToEnter) {
 		if (description.toLowerCase().contains("password"))
-			info("Enter text [********] in the [" + description + "] text box");
+			Log.info("Enter text [********] in the [" + description + "] text box");
 		else
-			info("Enter text [" + textToEnter + "] in the [" + description + "] text box");
+			Log.info("Enter text [" + textToEnter + "] in the [" + description + "] text box");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		element.clear();
 		element.sendKeys(textToEnter);
@@ -46,7 +46,7 @@ public final class TextBox extends Element {
 	 * @return text
 	 */
 	public String getText() {
-		info("Get text from [" + description + "] text box");
+		Log.info("Get text from [" + description + "] text box");
 		return wait.until(elementToBeClickable(locator)).getText();
 	}
 

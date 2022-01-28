@@ -1,8 +1,8 @@
 package org.automation.elements;
 
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+import org.automation.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -32,7 +32,7 @@ public final class DropDown extends Element {
 	 * @param index the index to be selected
 	 */
 	public void selectByIndex(int index) {
-		info("Select index [" + index + "] from the [" + description + "] drop down");
+		Log.info("Select index [" + index + "] from the [" + description + "] drop down");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		new Select(element).selectByIndex(index);
 	}
@@ -43,7 +43,7 @@ public final class DropDown extends Element {
 	 * @param value the value to be selected
 	 */
 	public void selectByValue(String value) {
-		info("Select value [" + value + "] from the [" + description + "] drop down");
+		Log.info("Select value [" + value + "] from the [" + description + "] drop down");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		new Select(element).selectByValue(value);
 	}
@@ -54,7 +54,7 @@ public final class DropDown extends Element {
 	 * @param visibleText the text to be selected
 	 */
 	public void selectByVisibleText(String visibleText) {
-		info("Select text [" + visibleText + "] from the [" + description + "] drop down");
+		Log.info("Select text [" + visibleText + "] from the [" + description + "] drop down");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		new Select(element).selectByVisibleText(visibleText);
 	}
@@ -65,7 +65,7 @@ public final class DropDown extends Element {
 	 * @return number of options
 	 */
 	public int getNumberOfOptions() {
-		info("Get the number of options from the [" + description + "] drop down");
+		Log.info("Get the number of options from the [" + description + "] drop down");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		return new Select(element).getOptions().size();
 	}
@@ -76,7 +76,7 @@ public final class DropDown extends Element {
 	 * @return list of all the options
 	 */
 	public String[] getAllOptions() {
-		info("Get all the options from the [" + description + "] drop down");
+		Log.info("Get all the options from the [" + description + "] drop down");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		return new Select(element).getOptions().stream().map(WebElement::getText).toArray(String[]::new);
 	}
@@ -87,7 +87,7 @@ public final class DropDown extends Element {
 	 * @return currently selected option
 	 */
 	public String getSelectedOption() {
-		info("Get the selected option from the [" + description + "] drop down");
+		Log.info("Get the selected option from the [" + description + "] drop down");
 		WebElement element = wait.until(elementToBeClickable(locator));
 		return new Select(element).getFirstSelectedOption().getText();
 	}

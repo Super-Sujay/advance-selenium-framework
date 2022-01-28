@@ -1,8 +1,7 @@
 package org.automation.config;
 
-import static java.util.Collections.synchronizedList;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -19,10 +18,12 @@ import net.lightbody.bmp.BrowserMobProxy;
  */
 public final class DriverFactory {
 
-	private static List<WebDriverThread> driverThreadPool = synchronizedList(new ArrayList<WebDriverThread>());
+	private static List<WebDriverThread> driverThreadPool = Collections
+			.synchronizedList(new ArrayList<WebDriverThread>());
 	private static ThreadLocal<WebDriverThread> driverThread;
 
-	private DriverFactory() { }
+	private DriverFactory() {
+	}
 
 	/**
 	 * Initialize the web driver thread.

@@ -1,29 +1,22 @@
 package org.automation.config;
 
-import static java.lang.Boolean.getBoolean;
-import static java.lang.Integer.getInteger;
-import static java.lang.System.getProperty;
-import static java.util.Optional.ofNullable;
-import static net.lightbody.bmp.client.ClientUtil.createSeleniumProxy;
-import static org.automation.config.DriverType.CHROME;
-import static org.automation.logger.Log.error;
-import static org.automation.logger.Log.info;
-import static org.automation.logger.Log.warn;
-import static org.openqa.selenium.Platform.valueOf;
-import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
-
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.automation.logger.Log;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.Proxy;
+import org.openqa.selenium.Proxy.ProxyType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.client.ClientUtil;
 
 /**
  * To create a thread safe web driver instances.
@@ -40,15 +33,17 @@ public final class WebDriverThread {
 	private BrowserMobProxy browserMobProxy;
 	private boolean usingBrowserMobProxy;
 
-	private final DriverType defaultDriverType = CHROME;
-	private final Optional<String> browser = ofNullable(getProperty("browser"));
-	private final String operatingSystem = getProperty("os.name").toUpperCase();
-	private final String systemArchitecture = getProperty("os.arch").toUpperCase();
-	private final boolean useRemoteWebDriver = getBoolean("remoteDriver");
-	private final boolean proxyEnabled = getBoolean("proxyEnabled");
-	private final String proxyHostname = getProperty("proxyHost");
-	private final Integer proxyPort = getInteger("proxyPort");
+	private final DriverType defaultDriverType = DriverType.CHROME;
+	private final Optional<String> browser = Optional.ofNullable(System.getProperty("browser"));
+	private final String operatingSystem = System.getProperty("os.name").toUpperCase();
+	private final String systemArchitecture = System.getProperty("os.arch").toUpperCase();
+	private final boolean useRemoteWebDriver = Boolean.getBoolean("remoteDriver");
+	private final boolean proxyEnabled = Boolean.getBoolean("proxyEnabled");
+	private final String proxyHostname = System.getProperty("proxyHost");
+	private final Integer proxyPort = Integer.getInteger("proxyPort");
 	private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
+
+	private static final LocalDateTime TIMESTAMP = LocalDateTime.now();
 
 	/**
 	 * Get the web driver instance.
@@ -108,12 +103,13 @@ public final class WebDriverThread {
 					usingBrowserMobProxy = true;
 					browserMobProxy = new BrowserMobProxyServer();
 					browserMobProxy.start();
-					if (proxyEnabled)
+					if (proxyEnabled) {
 						browserMobProxy.setChainedProxy(new InetSocketAddress(proxyHostname, proxyPort));
-					proxy = createSeleniumProxy(browserMobProxy);
+					}
+					proxy = ClientUtil.createSeleniumProxy(browserMobProxy);
 				} else {
 					proxy = new Proxy();
-					proxy.setProxyType(MANUAL);
+					proxy.setProxyType(ProxyType.MANUAL);
 					proxy.setHttpProxy(proxyDetails);
 					proxy.setSslProxy(proxyDetails);
 				}
@@ -135,7 +131,7 @@ public final class WebDriverThread {
 		try {
 			driverType = DriverType.valueOf(browser.orElse("No browser specified").toUpperCase());
 		} catch (IllegalArgumentException e) {
-			warn("Issues initializing driver, defaulting to '" + driverType + "'...");
+			Log.warn("Issues initializing driver, defaulting to '" + driverType + "'...");
 		}
 		return driverType;
 	}
@@ -146,25 +142,31 @@ public final class WebDriverThread {
 	 * @param capabilities desired capabilities to use
 	 */
 	private void instantiateWebDriver(DesiredCapabilities capabilities) {
-		info("Operating System: " + operatingSystem);
-		info("System Architecture: " + systemArchitecture);
-		info("Browser Selection: " + selectedDriverType);
+		Log.info("Operating System: " + operatingSystem);
+		Log.info("System Architecture: " + systemArchitecture);
+		Log.info("Browser Selection: " + selectedDriverType);
 		if (useRemoteWebDriver) {
 			URL seleniumGridURL = null;
 			try {
-				seleniumGridURL = new URL(getProperty("gridURL"));
+				seleniumGridURL = new URL(System.getProperty("gridURL"));
 			} catch (MalformedURLException e) {
-				error("Incorrect Grid URL...", e);
-				e.printStackTrace();
+				Log.error("Incorrect Grid URL...", e);
+				throw new RuntimeException("Incorrect Grid URL...", e);
 			}
-			String desiredBrowserVersion = getProperty("desiredBrowserVersion");
-			String desiredPlatform = getProperty("desiredPlatform");
+			String desiredBrowserVersion = System.getProperty("desiredBrowserVersion");
+			String desiredPlatform = System.getProperty("desiredPlatform");
 			if (desiredPlatform != null && !desiredPlatform.isEmpty()) {
-				capabilities.setPlatform(valueOf(desiredPlatform.toUpperCase()));
+				capabilities.setPlatform(Platform.valueOf(desiredPlatform.toUpperCase()));
 			}
 			if (desiredBrowserVersion != null && !desiredBrowserVersion.isEmpty()) {
 				capabilities.setVersion(desiredBrowserVersion);
 			}
+			capabilities.setCapability("project", "Framework Testing");
+			capabilities.setCapability("build", "Build-" + TIMESTAMP);
+			capabilities.setCapability("browserstack.debug", true);
+			capabilities.setCapability("browserstack.networkLogs", true);
+			capabilities.setCapability("browserstack.user", System.getenv("BROWSERSTACK_USERNAME"));
+			capabilities.setCapability("browserstack.key", System.getenv("BROWSERSTACK_ACCESS_KEY"));
 			driver = new RemoteWebDriver(seleniumGridURL, capabilities);
 		} else {
 			driver = selectedDriverType.getWebDriverObject(capabilities);

@@ -1,26 +1,18 @@
 package org.automation.listeners;
 
-import static com.aventstack.extentreports.MediaEntityBuilder.createScreenCaptureFromBase64String;
 import static com.aventstack.extentreports.Status.FAIL;
 import static com.aventstack.extentreports.Status.PASS;
 import static com.aventstack.extentreports.Status.SKIP;
 import static com.aventstack.extentreports.reporter.configuration.Theme.STANDARD;
-import static java.lang.System.currentTimeMillis;
-import static java.lang.System.getProperty;
-import static java.nio.file.Files.createDirectory;
-import static java.nio.file.Files.notExists;
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-import static java.nio.file.Paths.get;
-import static java.time.Instant.ofEpochMilli;
-import static java.util.Arrays.stream;
-import static java.util.Date.from;
-import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
-import static org.automation.logger.Log.error;
-import static org.testng.Reporter.getOutput;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Instant;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,16 +20,19 @@ import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.automation.logger.Log;
 import org.testng.IReporter;
 import org.testng.IResultMap;
 import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.xml.XmlSuite;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.MediaEntityModelProvider;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
@@ -54,9 +49,9 @@ public final class TestReporter implements IReporter {
 
 	private ExtentReports extent;
 
-	private final Optional<String> browser = ofNullable(getProperty("browser"));
-	private final String operatingSystem = getProperty("os.name").toUpperCase();
-	private final String systemArchitecture = getProperty("os.arch").toUpperCase();
+	private final Optional<String> browser = Optional.ofNullable(System.getProperty("browser"));
+	private final String operatingSystem = System.getProperty("os.name").toUpperCase();
+	private final String systemArchitecture = System.getProperty("os.arch").toUpperCase();
 
 	@Override
 	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
@@ -70,7 +65,7 @@ public final class TestReporter implements IReporter {
 				buildTestNodes(context.getPassedTests(), PASS);
 			}
 		}
-		getOutput().forEach(extent::setTestRunnerOutput);
+		Reporter.getOutput().forEach(extent::setTestRunnerOutput);
 		extent.flush();
 	}
 
@@ -81,11 +76,11 @@ public final class TestReporter implements IReporter {
 	 */
 	private void init(List<XmlSuite> xmlSuites) {
 		String suiteName = xmlSuites.get(0).getName();
-		Path report = get(getProperty("user.dir"), "target", "extent-reports",
-				"Extent Report_" + currentTimeMillis() + "_" + suiteName + ".html");
-		if (notExists(report.getParent(), NOFOLLOW_LINKS)) {
+		Path report = Paths.get(System.getProperty("user.dir"), "target", "extent-reports",
+				"Extent Report_" + System.currentTimeMillis() + "_" + suiteName + ".html");
+		if (Files.notExists(report.getParent(), NOFOLLOW_LINKS)) {
 			try {
-				createDirectory(report.getParent());
+				Files.createDirectory(report.getParent());
 			} catch (IOException e) {
 				System.err.println("Unable to create path: " + report.getParent());
 				e.printStackTrace();
@@ -121,18 +116,19 @@ public final class TestReporter implements IReporter {
 				Throwable throwable = result.getThrowable();
 				Object[] parameters = result.getParameters();
 				if (parameters.length > 0) {
-					String params = stream(parameters).map(Object::toString).collect(joining(", "));
+					String params = Arrays.stream(parameters).map(Object::toString).collect(joining(", "));
 					test.info(params);
 				}
-				getOutput(result).forEach(test::info);
+				Reporter.getOutput(result).forEach(test::info);
 				test.log(status, "Test [" + result.getName() + "] " + status.toString() + "ed");
 				if (throwable != null) {
 					try {
 						String base64String = result.getAttribute("failureScreenshot").toString();
-						MediaEntityModelProvider provider = createScreenCaptureFromBase64String(base64String).build();
+						MediaEntityModelProvider provider = MediaEntityBuilder
+								.createScreenCaptureFromBase64String(base64String).build();
 						test.log(status, throwable, provider);
 					} catch (IOException e) {
-						error("Unable to add screenshot to extent report", e);
+						Log.error("Unable to add screenshot to extent report", e);
 					}
 				}
 				test.getModel().setStartTime(this.getTime(result.getStartMillis()));
@@ -148,7 +144,7 @@ public final class TestReporter implements IReporter {
 	 * @return the data and time
 	 */
 	private Date getTime(long millis) {
-		return from(ofEpochMilli(millis));
+		return Date.from(Instant.ofEpochMilli(millis));
 	}
 
 }

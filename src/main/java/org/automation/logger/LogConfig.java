@@ -1,12 +1,11 @@
 package org.automation.logger;
 
-import static java.lang.System.getProperty;
-import static java.time.LocalDateTime.now;
-import static java.time.format.DateTimeFormatter.ofPattern;
+import static java.io.File.separator;
 import static org.apache.log4j.Level.DEBUG;
 
-import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.FileAppender;
@@ -26,7 +25,8 @@ public class LogConfig {
 
 	private static Logger log;
 
-	private LogConfig() { }
+	private LogConfig() {
+	}
 
 	/**
 	 * Initialize the logger object.
@@ -57,9 +57,9 @@ public class LogConfig {
 	 * Initialize the logs.
 	 */
 	private static void initLogs() {
-		String runtime = now().format(ofPattern("MM.dd.yyyy.hh.mm.ss"));
-		String path = getProperty("user.dir") + File.separator + "target" + File.separator + "selenium-logs"
-				+ File.separator + runtime + ".log";
+		String runtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM.dd.yyyy.hh.mm.ss"));
+		String path = System.getProperty("user.dir") + separator + "target" + separator + "selenium-logs" + separator
+				+ runtime + ".log";
 		log = initializeLogger(path);
 	}
 

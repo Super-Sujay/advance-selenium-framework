@@ -1,15 +1,16 @@
 package org.automation.utilities;
 
 import static java.nio.charset.Charset.defaultCharset;
-import static java.nio.file.Files.newBufferedReader;
-import static java.util.Optional.ofNullable;
-import static org.automation.logger.Log.error;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.Properties;
+
+import org.automation.logger.Log;
 
 /**
  * To get the configuration details present in config.properties file.
@@ -23,7 +24,8 @@ public final class Configuration {
 
 	private static Properties properties;
 
-	private Configuration() { }
+	private Configuration() {
+	}
 
 	/**
 	 * Load the properties present in configuration file.
@@ -31,10 +33,10 @@ public final class Configuration {
 	public static void load() {
 		properties = new Properties();
 		Path config = Paths.get("config.properties");
-		try (BufferedReader reader = newBufferedReader(config, defaultCharset())) {
+		try (BufferedReader reader = Files.newBufferedReader(config, defaultCharset())) {
 			properties.load(reader);
 		} catch (IOException e) {
-			error("Unable to find config.properties file...", e);
+			Log.error("Unable to find config.properties file...", e);
 		}
 	}
 
@@ -48,7 +50,7 @@ public final class Configuration {
 		if (properties == null) {
 			load();
 		}
-		return ofNullable(properties.getProperty(property)).orElse("");
+		return Optional.ofNullable(properties.getProperty(property)).orElse("");
 	}
 
 	/**

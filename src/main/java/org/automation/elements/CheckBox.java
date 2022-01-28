@@ -1,8 +1,8 @@
 package org.automation.elements;
 
-import static org.automation.logger.Log.info;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+import org.automation.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -31,9 +31,9 @@ public final class CheckBox extends Element {
 	public void check() {
 		WebElement element = wait.until(elementToBeClickable(locator));
 		if (element.isSelected()) {
-			info("Checkbox [" + description + "] is already checked");
+			Log.info("Checkbox [" + description + "] is already checked");
 		} else {
-			info("Check [" + description + "] checkbox");
+			Log.info("Check [" + description + "] checkbox");
 			element.click();
 		}
 	}
@@ -44,10 +44,10 @@ public final class CheckBox extends Element {
 	public void uncheck() {
 		WebElement element = wait.until(elementToBeClickable(locator));
 		if (element.isSelected()) {
-			info("Uncheck [" + description + "] checkbox");
+			Log.info("Uncheck [" + description + "] checkbox");
 			element.click();
 		} else {
-			info("Checkbox [" + description + "] is already unchecked");
+			Log.info("Checkbox [" + description + "] is already unchecked");
 		}
 	}
 
@@ -57,7 +57,7 @@ public final class CheckBox extends Element {
 	 * @return true if checked, false if un-checked
 	 */
 	public boolean isChecked() {
-		info("Is [" + description + "] checkbox checked");
+		Log.info("Is [" + description + "] checkbox checked");
 		return wait.until(elementToBeClickable(locator)).isSelected();
 	}
 
